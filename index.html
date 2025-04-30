@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Õnn tuleb nende juurde, kes naeratavad</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: 'Georgia', serif;
-      scroll-behavior: smooth;
     }
 
     body {
@@ -21,142 +17,186 @@
       background-size: cover;
     }
 
-    header {
-      background-color: rgba(255, 255, 255, 0.9);
+    .frontpage {
+      height: 100vh;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: #333;
-      margin: 4px 0;
+      justify-content: center;
     }
 
     .container {
       background: rgba(255, 255, 255, 0.8);
-      padding: 3rem 1rem;
+      padding: 3rem;
       border-radius: 1rem;
-      max-width: 900px;
-      margin: 4rem auto;
       text-align: center;
-    }
-
-    section {
-      margin-bottom: 3rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 2rem;
+      max-width: 90%;
     }
 
     h1 {
       font-size: 2rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
       margin-bottom: 1rem;
     }
 
     p {
       font-size: 1rem;
       color: #333;
-      line-height: 1.6;
+    }
+
+    @media (min-width: 600px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      background: #333;
+      margin: 4px 0;
+      width: 25px;
+    }
+
+    .menu {
+      display: flex;
     }
 
     @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
+      .menu {
         display: none;
-        background: #fff;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
         position: absolute;
-        right: 2rem;
-        top: 4rem;
-        border: 1px solid #ccc;
-        padding: 1rem;
+        top: 60px;
+        left: 0;
       }
-      nav ul.show {
+      .menu.active {
         display: flex;
       }
-      .hamburger {
+      .menu-toggle {
         display: flex;
       }
     }
+
+    section {
+      padding: 2rem 1rem;
+      background-color: #f9f9f9;
+    }
+
+    .separator {
+      height: 1px;
+      background-color: #ccc;
+      margin: 2rem auto;
+      width: 90%;
+    }
+
+    .section-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
   </style>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('active');
+    }
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Õnn tuleb nende juurde, kes naeratavad</h1>
-    <div class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('show')">
-      <div></div><div></div><div></div>
+  <nav>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#amuse">Amuse-bouche</a></li>
-        <li><a href="#leib">Leivakäik</a></li>
-        <li><a href="#eelroog-siig">Eelroog - siig</a></li>
-        <li><a href="#eelroog-vutt">Eelroog - vutt</a></li>
-        <li><a href="#pearoog">Pearoog - tall</a></li>
-        <li><a href="#jarelroog">Järelroog</a></li>
-      </ul>
-    </nav>
-  </header>
+    <div class="menu" id="menu">
+      <a href="#amuse">Amuse-bouche</a>
+      <a href="#leib">Leivakäik</a>
+      <a href="#siig">Eelroog - siig</a>
+      <a href="#vutt">Eelroog - vutt</a>
+      <a href="#tall">Pearoog - tall</a>
+      <a href="#jarel">Järelroog</a>
+    </div>
+  </nav>
 
-  <div class="container">
-    <section id="amuse">
-      <h2>Amuse-bouche</h2>
-      <p>Kammkarbid: efektne algus 90ndate ja 2000ndate restoranikultuuri peegeldusena, serveeritud maasikate ja parmesaniga.</p>
-    </section>
-
-    <section id="leib">
-      <h2>Leivakäik</h2>
-      <p>Rukkileib, karask ja krõbedik searasvamäärdega – luksuslik tõlgendus eesti leivapärandist.</p>
-    </section>
-
-    <section id="eelroog-siig">
-      <h2>Eelroog - siig</h2>
-      <p>Põhjamaine siig koos jänesekapsa, merevetika ja käsitööginiga “Metsis” – austusavaldus Eesti rannikule.</p>
-    </section>
-
-    <section id="eelroog-vutt">
-      <h2>Eelroog - vutt</h2>
-      <p>Vutiliha karamelliseeritud sibula ja konsomeega – mõisaköögi ja 1930ndate restoraniesteetika kohtumine.</p>
-    </section>
-
-    <section id="pearoog">
-      <h2>Pearoog - tall</h2>
-      <p>Tallefilee, nuikapsas ja spinat punase veini kastmes – klassikaline peen roog ajaloohõnguga.</p>
-    </section>
-
-    <section id="jarelroog">
-      <h2>Järelroog</h2>
-      <p>Sabayon sinikuslapuu ja rabarberiga, koos jäätise ja krõpsuga – kevadine magus finaal.</p>
-    </section>
+  <div class="frontpage">
+    <div class="container">
+      <h1>Õnn tuleb nende juurde, kes naeratavad</h1>
+      <p>Avame 7. mail 2025</p>
+    </div>
   </div>
+
+  <div class="separator"></div>
+
+  <section id="amuse">
+    <img src="Amuse-bouche.jpg" alt="Amuse-bouche" class="section-img">
+    <p>Suupiste: pohla-ananassimajonees, mangochutney, vürtsikas rohelise karri õli, redise- ja porgandikangid.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section id="leib">
+    <img src="Leivakäik.jpg" alt="Leivakäik" class="section-img">
+     <p>Leivakäik: Naaan nelja võidega: koriandri-küüslauguvõi, sumahhi-kreemjuust, vürtsikas mango-chili toorjuust, suitsutatud paprikavõi.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section id="siig">
+    <img src="Eelroog_siig.jpg" alt="Eelroog - siig" class="section-img">
+    <p>Eelroog – Siig: Kodumaine siig mango-ingverikastmes, suitsutatud paprika ja tomati salsaga.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section id="vutt">
+    <img src="Eelroog_vutt.jpg" alt="Eelroog - vutt" class="section-img">
+    <p>Eelroog – Vutt: Vutimunad suitsuse tamarindikastme ja praetud šalottsibulaga.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section id="tall">
+    <img src="Pearoog_tall.jpg" alt="Pearoog - tall" class="section-img">
+    <p>Pearoog – Tall: Tandooris röstitud tallekarree kardemonise karri ja kurkumiriisiga.</p>
+  </section>
+
+  <div class="separator"></div>
+
+  <section id="jarel">
+    <img src="Järelroog.jpg" alt="Järelroog" class="section-img">
+    <p>Järelroog: Kookose-jogurtipannacotta rabarberi ja roosipiprasiirupiga.</p>
+  </section>
 </body>
 </html>
