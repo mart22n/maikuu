@@ -83,10 +83,19 @@
       margin: 4px 0;
       width: 25px;
     }
+	
+	:target + .menu {
+	  display: none;
+	}
+
 
     .menu {
       display: flex;
     }
+	
+	.menu.active {
+	  display: flex;
+	}
 
     @media (max-width: 768px) {
       .menu {
