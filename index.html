@@ -10,6 +10,7 @@
       padding: 0;
       height: 100%;
       font-family: 'Georgia', serif;
+      color: #333; /* Default text color for sections */
     }
 
     body {
@@ -22,6 +23,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* Ensure content is above background image */
+      position: relative;
+      z-index: 1;
     }
 
     .container {
@@ -35,11 +39,13 @@
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
+      /* Title color */
+      color: rgb(60, 80, 50);
     }
 
-    p {
+    .container p { /* Specificity for frontpage paragraph */
       font-size: 1rem;
-      color: #333;
+      color: rgb(60, 80, 50); /* Match title color for frontpage paragraph */
     }
 
     @media (min-width: 600px) {
@@ -47,7 +53,7 @@
         font-size: 3rem;
       }
 
-      p {
+      .container p {
         font-size: 1.2rem;
       }
     }
@@ -58,67 +64,102 @@
       left: 0;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem;
-      z-index: 1000;
+      /* Adjust padding to potentially align with content or branding */
+      padding: 0.8rem 1rem; /* Slightly less padding */
+      z-index: 1000; /* Ensure nav is always on top */
+      display: flex; /* Use flexbox for layout */
+      justify-content: flex-end; /* Align menu items to the right by default */
+      align-items: center; /* Vertically center items */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
     }
 
     nav a {
-      margin: 0 1rem;
+      margin: 0 0.8rem; /* Reduced margin */
       text-decoration: none;
       color: #333;
-      font-weight: bold;
+      font-weight: bold; /* Navigation links are intentionally bold */
+      padding: 0.5rem 0; /* Add some vertical padding for click area */
+      transition: color 0.3s ease; /* Smooth color transition on hover */
     }
 
+    nav a:hover {
+      color: rgb(60, 80, 50); /* Hover color matching title */
+    }
+
+
     .menu-toggle {
-      display: none;
+      display: none; /* Hidden by default */
       flex-direction: column;
       cursor: pointer;
+      padding: 0.5rem; /* Add padding for easier clicking */
+      margin-left: 1rem; /* Space from potential logo/title on left */
     }
 
     .menu-toggle span {
       height: 3px;
       background: #333;
-      margin: 4px 0;
+      margin: 3px 0; /* Adjusted margin */
       width: 25px;
+      border-radius: 2px; /* Optional: round corners */
+      transition: transform 0.3s ease; /* Smooth toggle animation */
     }
-	
-	:target + .menu {
-	  display: none;
-	}
-
 
     .menu {
-      display: flex;
+      display: flex; /* Always flex on desktop */
+      /* On mobile, this will be overridden */
     }
-	
-	.menu.active {
-	  display: flex;
-	}
 
+    /* Responsive behavior for menu and toggle */
     @media (max-width: 768px) {
+      nav {
+        justify-content: space-between; /* Space between toggle and potential logo */
+      }
+
       .menu {
-        display: none;
+        display: none; /* Hide menu by default on mobile */
         flex-direction: column;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent */
         width: 100%;
         position: absolute;
-        top: 60px;
+        top: 100%; /* Position right below the nav bar */
         left: 0;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.1); /* Add shadow when open */
       }
       .menu.active {
-        display: flex;
+        display: flex; /* Show menu when active */
       }
       .menu-toggle {
-        display: flex;
+        display: flex; /* Show toggle button */
       }
+      nav a {
+          margin: 0; /* Remove horizontal margin in column layout */
+          padding: 1rem; /* Add more padding for touch targets */
+          border-bottom: 1px solid #eee; /* Add separators between items */
+          text-align: center; /* Center text */
+      }
+       nav a:last-child {
+           border-bottom: none; /* No border on the last item */
+       }
     }
 
     section {
-      padding: 2rem 1rem;
-      background-color: #f9f9f9;
+      padding: 4rem 1rem 2rem; /* Add top padding to account for fixed nav */
+      /* Default background color */
+      background-color: #fff; /* Start with white, will be overridden */
+      position: relative; /* Needed for potential absolute elements inside */
+      z-index: 1; /* Ensure sections are above the body background */
     }
+
+    /* --- Section Specific Background Colors --- */
+    /* Manually picked light, softened colors based on image themes */
+    #amuse { background-color: hsl(30, 80%, 95%); } /* Light peachy/pink from scallops/strawberries */
+    #leib { background-color: hsl(40, 50%, 95%); } /* Light beige/cream from bread/butter */
+    #siig { background-color: hsl(120, 20%, 95%); } /* Very light green from herbs/veg */
+    #vutt { background-color: hsl(30, 30%, 95%); } /* Light warm grey/brown from quail */
+    #tall { background-color: hsl(60, 30%, 95%); } /* Light yellow/green from potatoes/spinach */
+    #jarel { background-color: hsl(240, 30%, 96%); } /* Very light blue/purple from berries */
+    /* --- End Section Specific Background Colors --- */
+
 
     .separator {
       height: 1px;
@@ -128,25 +169,92 @@
     }
 
     .section-img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem; /* Increased margin */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add subtle shadow to images */
+    }
+
+    section p { /* Style paragraphs within sections */
+        line-height: 1.6; /* Improve readability */
+        margin-bottom: 1rem; /* Space between paragraphs */
+        max-width: 800px; /* Limit paragraph width for readability */
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: normal; /* Explicitly set normal font weight for ALL section paragraphs */
+    }
+
+    /* Rule for the first paragraph (item name) - removed bolding */
+    section p:first-of-type {
+        margin-top: 0.5rem; /* Adjust spacing after image */
+        /* No font-weight rule here means it inherits from section p { font-weight: normal; } */
+    }
+
+
+    .end-svg-container {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    .end-svg-container svg {
+        display: inline-block; /* Ensure SVG is centered correctly */
+        width: 80px; /* Adjust size as needed */
+        height: auto;
+    }
+
+    .end-svg-container path {
+        /* Match the title color */
+        fill: rgb(60, 80, 50);
+    }
+
   </style>
   <script>
     function toggleMenu() {
       const menu = document.getElementById('menu');
       menu.classList.toggle('active');
     }
+
+    // Add event listeners to close menu when a link is clicked (for mobile)
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuLinks = document.querySelectorAll('#menu a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          const menu = document.getElementById('menu');
+          // Check if menu is open (has 'active' class)
+          if (menu.classList.contains('active')) {
+            // Wait a tiny bit before closing to allow the browser to process the link click first
+            setTimeout(() => {
+                toggleMenu();
+            }, 50); // 50ms delay
+          }
+        });
+      });
+       // Optional: Close menu when clicking outside the menu on mobile
+      document.addEventListener('click', function(event) {
+        const menu = document.getElementById('menu');
+        const menuToggle = document.querySelector('.menu-toggle');
+        // Check if the click was *outside* the menu and the toggle button
+        const isClickInsideMenuOrToggle = menu.contains(event.target) || (menuToggle && menuToggle.contains(event.target));
+         // Also check if it's likely a mobile view where the menu is collapsible
+        const isMobileView = window.getComputedStyle(menuToggle).display !== 'none'; // Check if toggle is visible
+
+        if (!isClickInsideMenuOrToggle && menu.classList.contains('active') && isMobileView) {
+           toggleMenu();
+        }
+      });
+
+    });
   </script>
 </head>
 <body>
   <nav>
+     <!-- Optional: Add a simple logo or site title placeholder -->
+     <!-- <div class="site-title">Restoran</div> -->
     <div class="menu-toggle" onclick="toggleMenu()">
       <span></span>
       <span></span>
@@ -164,8 +272,8 @@
 
   <div class="frontpage">
     <div class="container">
-      <h1 style="color: rgb(60, 80, 50);">Õnn tuleb nende juurde, kes naeratavad</h1>
-      <p style="color: rgb(60, 80, 50);">Avame 7. mail 2025</p>
+      <h1>Õnn tuleb nende juurde, kes naeratavad</h1>
+      <p>Avame 7. mail 2025</p>
     </div>
   </div>
 
@@ -173,7 +281,7 @@
 
   <section id="amuse">
     <img src="amuse-bouche.jpg" alt="Amuse-bouche" class="section-img">
-	<p>Kammkarbid</p>
+	<p><b>Kammkarbid</b></p>
     <p>Miks me alustame kammkarbiga? Põhjuseks oli soov pakkuda midagi erilist ning kõrgetasemelist, mis erineks kohalikust toorainest. Eesti tipprestoranidesse jõudis ta alles 90-ndate lõpus ja 2000 aastate alguses. Kammkarp on visuaalselt efektne ja kergesti kombineeritav – just nagu ta on ka selles roas maasikate ja parmesaniga</p>
   </section>
 
@@ -181,7 +289,7 @@
 
   <section id="leib">
     <img src="leivakäik.jpg" alt="Leivakäik" class="section-img">
-	<p>Leivakäik</p>
+	<p><b>Leivakäik</b></p>
      <p>Eesti leivakultuuri süda kohtub kevadise küllusega - rukkileiva sügav maitse, pehme karask ja krõbedik loovad kolmikmängu, mida täiendab rikkalik searasvamääre, justkui kummardus vanadele talupojapidudele. Luksuslik tõlgendus meie toidupärandist, kus lihtsus ja pidulikkus kõnnivad käsikäes.</p>
   </section>
 
@@ -189,7 +297,7 @@
 
   <section id="siig">
     <img src="eelroog_siig.jpg" alt="Eelroog - siig" class="section-img">
-    <p>Siig</p>
+    <p><b>Siig</b></p>
 	<p>Peene puudutusega austusavaldus Eesti rannikule – siig, mida on hinnatud pidulaual juba sajandeid, saab uue elu kevadises kooskõlas. Värsket hapukust toob jänesekapsas, sügavust lisab merevetikas ning elegantsi käsitöö gin
 
 Siia hõrk valge liha on nii puhas, et vanarahvas nimetas teda : “Kala, mis maitseb nagu vesi ja või”</p>
@@ -199,7 +307,7 @@ Siia hõrk valge liha on nii puhas, et vanarahvas nimetas teda : “Kala, mis ma
 
   <section id="vutt">
     <img src="eelroog_vutt.jpg" alt="Eelroog - vutt" class="section-img">
-    <p>Vutt on kunagise mõisaköögi uhkus.</p>
+    <p><b>Vutt on kunagise mõisaköögi uhkus</b></p>
 	<p>Vutiliha oli eriti hinnas 1930ndatel restoranides, kus pakuti teda praena ning 1980ndate lõpus oli väga popp vutisalat. Meil on ta serveeritud õrnalt karamelliseeritud sibulaga mille magusus tasakaalustab konsomee puhtaid maitseid.</p>
   </section>
 
@@ -207,30 +315,27 @@ Siia hõrk valge liha on nii puhas, et vanarahvas nimetas teda : “Kala, mis ma
 
   <section id="tall">
     <img src="pearoog_tall.jpg" alt="Pearoog - tall" class="section-img">
-    <p>Pearoaks oleme valinud talleliha. Enne Teist maailma sõda oli talleliha Eestis üsna hinnatud, pärast sõda aga see unustati. Koos uue gastronoomia tõusuga on tallefilee taas elegantse ja kohaliku luksuse sümboliks. Eesti vanarahvas pidas talleliha “pühapäevatoiduks”, mida serveeriti kevadel ja suurtel pühadel. 18. Sajandil jõudis Eestisse kartul, nuikapsas oli Eestis väga levinud 19-20 sajandil, spinat seevastu on tuntud juba keskaajast. Tuntuim eesti kokaraamat 1930ndatest “kartulivõid” segada spinatiga, et anda “kevade rohelust ja tervist” Seda kõike täiustab punase veini kaste – klassikaline prantsuse köögi element, mis tekkis koos fine diningu esimese lainega ja on tänaseni jäänud üheks peene roa tunnuseks.</p>
+    <p><b>Pearoaks oleme valinud talleliha</b></p>
+	<p>Enne Teist maailmasõda oli talleliha Eestis üsna hinnatud, pärast sõda aga see unustati. Koos uue gastronoomia tõusuga on tallefilee taas elegantse ja kohaliku luksuse sümboliks. Eesti vanarahvas pidas talleliha “pühapäevatoiduks”, mida serveeriti kevadel ja suurtel pühadel. 18. Sajandil jõudis Eestisse kartul, nuikapsas oli Eestis väga levinud 19-20 sajandil, spinat seevastu on tuntud juba keskaajast. Tuntuim eesti kokaraamat 1930ndatest “kartulivõid” segada spinatiga, et anda “kevade rohelust ja tervist” Seda kõike täiustab punase veini kaste – klassikaline prantsuse köögi element, mis tekkis koos fine diningu esimese lainega ja on tänaseni jäänud üheks peene roa tunnuseks.</p>
   </section>
 
   <div class="separator"></div>
 
   <section id="jarel">
     <img src="Järelroog.jpg" alt="Järelroog" class="section-img">
-    <p>Magusaks : Sabayone kreem on Itaalia päritolu munakreem, sobib ideaalselt kodumaise marjaga kombineerimiseks nagu kuslapuu. Sinine kuslapuu jõudis Eestisse 2000ndatel aastatel. Valisime selle marja kuulsa Mitšurini järgi, kelle nimeline kolhoos oli meil siinsamas Valtu külas. Ta ei aretanud küll konkreetselt seda sorti, aga pani aluse külma kindlatele viljakultuuridele mille pärandisse kuulub sinine kuslapuu. Rabarber oli 20 sajandi alguse restoranimagustoidu superstaar, eriti kevadmenüüs kuna ta oli esimene saadaolev “puuvili” hooaja alguses. Koos jäätise ja krõpsuga moodustab “Kevadöine kiusatus” mõnusa maitseplahvatuse meie värskendavale menüüle.</p>
-  
-  <br>
-  <div style="text-align: center; margin: 2rem 0;">
-  <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M50,0 L100,10 L50,20 L0,10 Z" fill="#999"/>
-</svg>
+    <p><b>Magusaks: sabayone kreem</b></p>
+	<p>on Itaalia päritolu munakreem, sobib ideaalselt kodumaise marjaga kombineerimiseks nagu kuslapuu. Sinine kuslapuu jõudis Eestisse 2000ndatel aastatel. Valisime selle marja kuulsa Mitšurini järgi, kelle nimeline kolhoos oli meil siinsamas Valtu külas. Ta ei aretanud küll konkreetselt seda sorti, aga pani aluse külma kindlatele viljakultuuridele mille pärandisse kuulub sinine kuslapuu. Rabarber oli 20 sajandi alguse restoranimagustoidu superstaar, eriti kevadmenüüs kuna ta oli esimene saadaolev “puuvili” hooaja alguses. Koos jäätise ja krõpsuga moodustab “Kevadöine kiusatus” mõnusa maitseplahvatuse meie värskendavale menüüle.</p>
 
-</div>
-  <p>Oleme viimased kaks aastat pühendunult keetnud, küpsetanud, maitsenud ja lõputult katsetanud, et jõuda siia üheks õhtuks ja loodame, et suudame siiski iga ampsuga tuua naeratuse näole ja saate osa meie loost.
+    <div class="end-svg-container">
+      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Path fill will be set by CSS -->
+        <path d="M50,0 L100,10 L50,20 L0,10 Z"/>
+      </svg>
+    </div>
+
+    <p style="text-align: center;">Oleme viimased kaks aastat pühendunult keetnud, küpsetanud, maitsnud ja lõputult katsetanud, et jõuda siia üheks õhtuks ja loodame, et suudame siiski iga ampsuga tuua naeratuse näole ja saate osa meie loost.
 
 Head isu ning aitäh, et olete osa meie algusest!</p>
   </section>
 </body>
 </html>
-
-
-
-
-
