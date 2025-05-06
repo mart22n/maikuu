@@ -11,11 +11,26 @@
       height: 100%;
       font-family: 'Georgia', serif;
       color: #333; /* Default text color for sections */
+      /* Important for positioning context */
+      position: relative;
     }
 
     body {
-      background: url("outdoor-flowers.jpg") no-repeat center center fixed;
+      /* REMOVE background properties from body */
+      background: none; /* Or just remove the properties */
+    }
+
+    /* Add a pseudo-element for the fixed background */
+    body::before {
+      content: ''; /* Required for pseudo-elements */
+      position: fixed; /* This element is fixed to the viewport */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("outdoor-flowers.jpg") no-repeat center center;
       background-size: cover;
+      z-index: -1; /* Place it behind all other content */
     }
 
     .frontpage {
@@ -24,8 +39,8 @@
       align-items: center;
       justify-content: center;
       /* Ensure content is above background image */
-      position: relative;
-      z-index: 1;
+      position: relative; /* Needed for z-index to work */
+      z-index: 1; /* Ensure content is above the background (-1) */
     }
 
     .container {
@@ -64,102 +79,95 @@
       left: 0;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.9);
-      /* Adjust padding to potentially align with content or branding */
-      padding: 0.8rem 1rem; /* Slightly less padding */
+      padding: 0.8rem 1rem;
       z-index: 1000; /* Ensure nav is always on top */
-      display: flex; /* Use flexbox for layout */
-      justify-content: flex-end; /* Align menu items to the right by default */
-      align-items: center; /* Vertically center items */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     nav a {
-      margin: 0 0.8rem; /* Reduced margin */
+      margin: 0 0.8rem;
       text-decoration: none;
       color: #333;
-      font-weight: bold; /* Navigation links are intentionally bold */
-      padding: 0.5rem 0; /* Add some vertical padding for click area */
-      transition: color 0.3s ease; /* Smooth color transition on hover */
+      font-weight: bold;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
-      color: rgb(60, 80, 50); /* Hover color matching title */
+      color: rgb(60, 80, 50);
     }
 
-
     .menu-toggle {
-      display: none; /* Hidden by default */
+      display: none;
       flex-direction: column;
       cursor: pointer;
-      padding: 0.5rem; /* Add padding for easier clicking */
-      margin-left: 1rem; /* Space from potential logo/title on left */
+      padding: 0.5rem;
+      margin-left: 1rem;
     }
 
     .menu-toggle span {
       height: 3px;
       background: #333;
-      margin: 3px 0; /* Adjusted margin */
+      margin: 3px 0;
       width: 25px;
-      border-radius: 2px; /* Optional: round corners */
-      transition: transform 0.3s ease; /* Smooth toggle animation */
+      border-radius: 2px;
+      transition: transform 0.3s ease;
     }
 
     .menu {
-      display: flex; /* Always flex on desktop */
-      /* On mobile, this will be overridden */
+      display: flex;
     }
 
-    /* Responsive behavior for menu and toggle */
     @media (max-width: 768px) {
       nav {
-        justify-content: space-between; /* Space between toggle and potential logo */
+        justify-content: space-between;
       }
 
       .menu {
-        display: none; /* Hide menu by default on mobile */
+        display: none;
         flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent */
+        background-color: rgba(255, 255, 255, 0.95);
         width: 100%;
         position: absolute;
-        top: 100%; /* Position right below the nav bar */
+        top: 100%;
         left: 0;
-        box-shadow: 0 5px 5px rgba(0,0,0,0.1); /* Add shadow when open */
+        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
       }
       .menu.active {
-        display: flex; /* Show menu when active */
+        display: flex;
       }
       .menu-toggle {
-        display: flex; /* Show toggle button */
+        display: flex;
       }
       nav a {
-          margin: 0; /* Remove horizontal margin in column layout */
-          padding: 1rem; /* Add more padding for touch targets */
-          border-bottom: 1px solid #eee; /* Add separators between items */
-          text-align: center; /* Center text */
+          margin: 0;
+          padding: 1rem;
+          border-bottom: 1px solid #eee;
+          text-align: center;
       }
        nav a:last-child {
-           border-bottom: none; /* No border on the last item */
+           border-bottom: none;
        }
     }
 
     section {
-      padding: 4rem 1rem 2rem; /* Add top padding to account for fixed nav */
-      /* Default background color */
-      background-color: #fff; /* Start with white, will be overridden */
-      position: relative; /* Needed for potential absolute elements inside */
-      z-index: 1; /* Ensure sections are above the body background */
+      padding: 4rem 1rem 2rem;
+      background-color: #fff;
+      position: relative; /* Needed for z-index to work */
+      z-index: 1; /* Ensure content is above the background (-1) */
     }
 
     /* --- Section Specific Background Colors --- */
-    /* Manually picked light, softened colors based on image themes */
-    #amuse { background-color: hsl(30, 80%, 95%); } /* Light peachy/pink from scallops/strawberries */
-    #leib { background-color: hsl(40, 50%, 95%); } /* Light beige/cream from bread/butter */
-    #siig { background-color: hsl(120, 20%, 95%); } /* Very light green from herbs/veg */
-    #vutt { background-color: hsl(30, 30%, 95%); } /* Light warm grey/brown from quail */
-    #tall { background-color: hsl(60, 30%, 95%); } /* Light yellow/green from potatoes/spinach */
-    #jarel { background-color: hsl(240, 30%, 96%); } /* Very light blue/purple from berries */
+    #amuse { background-color: hsl(30, 80%, 95%); }
+    #leib { background-color: hsl(40, 50%, 95%); }
+    #siig { background-color: hsl(120, 20%, 95%); }
+    #vutt { background-color: hsl(30, 30%, 95%); }
+    #tall { background-color: hsl(60, 30%, 95%); }
+    #jarel { background-color: hsl(240, 30%, 96%); }
     /* --- End Section Specific Background Colors --- */
-
 
     .separator {
       height: 1px;
@@ -173,28 +181,25 @@
       height: auto;
       object-fit: contain;
       border-radius: 0.5rem;
-      margin-bottom: 1.5rem; /* Increased margin */
+      margin-bottom: 1.5rem;
       display: block;
       margin-left: auto;
       margin-right: auto;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add subtle shadow to images */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    section p { /* Style paragraphs within sections */
-        line-height: 1.6; /* Improve readability */
-        margin-bottom: 1rem; /* Space between paragraphs */
-        max-width: 800px; /* Limit paragraph width for readability */
+    section p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        font-weight: normal; /* Explicitly set normal font weight for ALL section paragraphs */
+        font-weight: normal;
     }
 
-    /* Rule for the first paragraph (item name) - removed bolding */
     section p:first-of-type {
-        margin-top: 0.5rem; /* Adjust spacing after image */
-        /* No font-weight rule here means it inherits from section p { font-weight: normal; } */
+        margin-top: 0.5rem;
     }
-
 
     .end-svg-container {
         text-align: center;
@@ -202,13 +207,12 @@
     }
 
     .end-svg-container svg {
-        display: inline-block; /* Ensure SVG is centered correctly */
-        width: 80px; /* Adjust size as needed */
+        display: inline-block;
+        width: 80px;
         height: auto;
     }
 
     .end-svg-container path {
-        /* Match the title color */
         fill: rgb(60, 80, 50);
     }
 
@@ -219,35 +223,29 @@
       menu.classList.toggle('active');
     }
 
-    // Add event listeners to close menu when a link is clicked (for mobile)
     document.addEventListener('DOMContentLoaded', function() {
       const menuLinks = document.querySelectorAll('#menu a');
       menuLinks.forEach(link => {
         link.addEventListener('click', function() {
           const menu = document.getElementById('menu');
-          // Check if menu is open (has 'active' class)
           if (menu.classList.contains('active')) {
-            // Wait a tiny bit before closing to allow the browser to process the link click first
             setTimeout(() => {
                 toggleMenu();
-            }, 50); // 50ms delay
+            }, 50);
           }
         });
       });
-       // Optional: Close menu when clicking outside the menu on mobile
+
       document.addEventListener('click', function(event) {
         const menu = document.getElementById('menu');
         const menuToggle = document.querySelector('.menu-toggle');
-        // Check if the click was *outside* the menu and the toggle button
         const isClickInsideMenuOrToggle = menu.contains(event.target) || (menuToggle && menuToggle.contains(event.target));
-         // Also check if it's likely a mobile view where the menu is collapsible
-        const isMobileView = window.getComputedStyle(menuToggle).display !== 'none'; // Check if toggle is visible
+        const isMobileView = window.getComputedStyle(menuToggle).display !== 'none';
 
         if (!isClickInsideMenuOrToggle && menu.classList.contains('active') && isMobileView) {
            toggleMenu();
         }
       });
-
     });
   </script>
 </head>
