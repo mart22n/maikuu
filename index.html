@@ -5,32 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Õnn tuleb nende juurde, kes naeratavad</title>
   <style>
+    /* Add smooth scrolling behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: 'Georgia', serif;
       color: #333; /* Default text color for sections */
-      /* Important for positioning context */
       position: relative;
     }
 
     body {
-      /* REMOVE background properties from body */
-      background: none; /* Or just remove the properties */
+      background: none; /* Removed background from body */
     }
 
-    /* Add a pseudo-element for the fixed background */
+    /* Pseudo-element for the fixed background (iOS fix) */
     body::before {
-      content: ''; /* Required for pseudo-elements */
-      position: fixed; /* This element is fixed to the viewport */
+      content: '';
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background: url("outdoor-flowers.jpg") no-repeat center center;
       background-size: cover;
-      z-index: -1; /* Place it behind all other content */
+      z-index: -1;
     }
 
     .frontpage {
@@ -38,9 +41,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Ensure content is above background image */
-      position: relative; /* Needed for z-index to work */
-      z-index: 1; /* Ensure content is above the background (-1) */
+      position: relative;
+      z-index: 1;
     }
 
     .container {
@@ -54,13 +56,12 @@
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
-      /* Title color */
       color: rgb(60, 80, 50);
     }
 
-    .container p { /* Specificity for frontpage paragraph */
+    .container p {
       font-size: 1rem;
-      color: rgb(60, 80, 50); /* Match title color for frontpage paragraph */
+      color: rgb(60, 80, 50);
     }
 
     @media (min-width: 600px) {
@@ -80,7 +81,7 @@
       width: 100%;
       background-color: rgba(255, 255, 255, 0.9);
       padding: 0.8rem 1rem;
-      z-index: 1000; /* Ensure nav is always on top */
+      z-index: 1000;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -91,7 +92,7 @@
       margin: 0 0.8rem;
       text-decoration: none;
       color: #333;
-      font-weight: bold;
+      font-weight: bold; /* Navigation links are intentionally bold */
       padding: 0.5rem 0;
       transition: color 0.3s ease;
     }
@@ -156,8 +157,11 @@
     section {
       padding: 4rem 1rem 2rem;
       background-color: #fff;
-      position: relative; /* Needed for z-index to work */
-      z-index: 1; /* Ensure content is above the background (-1) */
+      position: relative;
+      z-index: 1;
+      /* Add scroll margin top to push the element down from the top when scrolled to */
+      /* Using 10vh provides a responsive margin based on viewport height */
+      scroll-margin-top: 10vh; /* Adjust this value if needed */
     }
 
     /* --- Section Specific Background Colors --- */
@@ -194,12 +198,16 @@
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        font-weight: normal;
+        font-weight: normal; /* Ensure body text is not bold */
     }
 
+    /* Rule for the first paragraph (item name) - removed bolding */
     section p:first-of-type {
         margin-top: 0.5rem;
+        /* Ensure item title is also not bold unless you specifically want it */
+         font-weight: normal; /* Explicitly set to normal */
     }
+
 
     .end-svg-container {
         text-align: center;
@@ -229,18 +237,22 @@
         link.addEventListener('click', function() {
           const menu = document.getElementById('menu');
           if (menu.classList.contains('active')) {
+            // Add a small delay before closing the menu to allow the scroll to start
             setTimeout(() => {
                 toggleMenu();
-            }, 50);
+            }, 50); // 50ms delay
           }
         });
       });
 
+      // Optional: Close menu when clicking outside the menu on mobile
       document.addEventListener('click', function(event) {
         const menu = document.getElementById('menu');
         const menuToggle = document.querySelector('.menu-toggle');
+        // Check if the click was *outside* the menu and the toggle button
         const isClickInsideMenuOrToggle = menu.contains(event.target) || (menuToggle && menuToggle.contains(event.target));
-        const isMobileView = window.getComputedStyle(menuToggle).display !== 'none';
+         // Also check if it's likely a mobile view where the menu is collapsible
+        const isMobileView = window.getComputedStyle(menuToggle).display !== 'none'; // Check if toggle is visible
 
         if (!isClickInsideMenuOrToggle && menu.classList.contains('active') && isMobileView) {
            toggleMenu();
